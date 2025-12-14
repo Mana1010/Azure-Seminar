@@ -23,6 +23,7 @@ export const isUserRegister = async (sessionId: string | undefined) => {
 };
 
 export const registerUser = async (data: Server_UserType) => {
+  console.log(data);
   const result = await prisma.user.create({
     data: {
       ...data,

@@ -24,9 +24,9 @@ enum Section {
 model User {
   id        String     @id @default(cuid())
   sessionId String     @unique @default(cuid())
-  firstName String
-  lastName  String
-  section   Section
+  firstName String     @default("No_name")
+  lastName  String     @default("No_lastname")
+  section   Section    @default(B)
   timeIn    DateTime   @default(now())
   timeOut   DateTime?
   feedbacks Feedback[]

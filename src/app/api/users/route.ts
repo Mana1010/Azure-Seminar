@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-
+    console.log(body);
     const { sessionId, timeIn, firstName } = await registerUser(body);
 
     return NextResponse.json(
