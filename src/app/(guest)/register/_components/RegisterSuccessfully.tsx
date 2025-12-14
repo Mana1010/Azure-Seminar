@@ -6,9 +6,10 @@ import azure from "../../../../../public/azure.png";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 import { GrTechnology } from "react-icons/gr";
+import { time } from "@/lib/helper/timeFormat";
 
 type RegisterSuccessfullyProps = {
-  timeIn: string;
+  timeIn: Date;
   name: string;
   setIsOpenDialog: Dispatch<SetStateAction<boolean>>;
 };
@@ -35,7 +36,7 @@ function RegisterSuccessfully({
           </h5>
           <p className="text-zinc-300 text-xs text-center">
             Your attendance for the seminar has been successfully recorded at{" "}
-            <span className="text-primary font-bold">{timeIn}</span>. The
+            <span className="text-primary font-bold">{time(timeIn)}</span>. The
             official time-out will be at 11:00 AM.
           </p>
         </div>

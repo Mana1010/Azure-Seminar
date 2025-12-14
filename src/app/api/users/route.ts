@@ -1,7 +1,7 @@
 import { Section } from "@/generated/prisma/enums";
 import { time } from "@/lib/helper/timeFormat";
 import { attendanceList, registerUser } from "@/lib/services/app.services";
-import { isEventEnded } from "@/lib/utils/checkEvent";
+import { isEventEnded, isTimeInStop } from "@/lib/utils/checkEvent";
 import { NextRequest, NextResponse } from "next/server";
 import { isUserRegister, timeout } from "@/lib/services/app.services";
 import { SortLastName } from "@/types/shared.type";
@@ -14,15 +14,20 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-
+    if (isTimeInStop()) {
+      return NextResponse.json(
+        { message: "Time In unavailable" },
+        { status: 400 }
+      );
+    }
     const body = await req.json();
-    console.log(body);
+
     const { sessionId, timeIn, firstName } = await registerUser(body);
 
     return NextResponse.json(
       {
         data: {
-          timeIn: time(new Date(timeIn) || new Date()),
+          timeIn,
           name: firstName,
           sessionId,
         },

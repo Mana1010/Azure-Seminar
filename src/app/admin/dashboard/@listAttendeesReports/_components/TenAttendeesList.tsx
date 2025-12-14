@@ -13,6 +13,7 @@ import {
 
 import axios from "axios";
 import { API_URL } from "@/environment";
+import { format } from "date-fns";
 const sort = [
   {
     name: "Early",
@@ -28,16 +29,15 @@ function TenAttendeesList() {
   const {
     data,
     isLoading,
-  }: UseQueryResult<{ name: string; year: string; timeIn: string }[]> =
-    useQuery({
-      queryKey: ["reports", "ten-attendees", sortBy],
-      queryFn: async () => {
-        const response = await axios.get(
-          `${API_URL}/api/reports/attendees-list?sort=${sortBy}`
-        );
-        return response.data.data;
-      },
-    });
+  }: UseQueryResult<{ name: string; year: string; timeIn: Date }[]> = useQuery({
+    queryKey: ["reports", "ten-attendees", sortBy],
+    queryFn: async () => {
+      const response = await axios.get(
+        `${API_URL}/api/reports/attendees-list?sort=${sortBy}`
+      );
+      return response.data.data;
+    },
+  });
   return (
     <div className="h-full p-3 flex flex-col overflow-hidden border border-zinc-300/35 rounded-md w-[300px] ">
       <header className="flex items-center justify-between gap-3">
@@ -76,7 +76,7 @@ function TenAttendeesList() {
                   <h6 className="text-zinc-300/85 text-xs">{d.year}</h6>
                 </div>
                 <h6 className={` text-xs text-zinc-400 font-bold`}>
-                  ({d.timeIn})
+                  ({format(d.timeIn, "p")})
                 </h6>
               </div>
             </div>

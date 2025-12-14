@@ -1,5 +1,5 @@
 import { deleteUser, timeout } from "@/lib/services/app.services";
-import { isEventEnded } from "@/lib/utils/checkEvent";
+import { isEventEnded, isTimeInStop } from "@/lib/utils/checkEvent";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
@@ -31,6 +31,7 @@ export async function PATCH(
       { status: 400 }
     );
   }
+
   if (!isEventEnded()) {
     return NextResponse.json(
       { message: "Event has not ended yet." },

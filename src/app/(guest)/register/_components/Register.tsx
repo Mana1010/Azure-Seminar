@@ -157,7 +157,7 @@ function Register() {
       >
         {" "}
         <RegisterSuccessfully
-          timeIn={mutationData?.data.timeIn || ""}
+          timeIn={mutationData?.data.timeIn || new Date()}
           name={mutationData?.data.name || ""}
           setIsOpenDialog={setIsOpenDialog}
         />

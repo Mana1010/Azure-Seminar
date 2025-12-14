@@ -15,14 +15,9 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
+import { differenceInMinutes, format } from "date-fns";
 import { useEffect, useMemo, useState } from "react";
-import {
-  IoFilter,
-  IoSearch,
-  IoTime,
-  IoTimeOutline,
-  IoTrashBin,
-} from "react-icons/io5";
+import { IoFilter, IoSearch, IoTime, IoTrashBin } from "react-icons/io5";
 import { useInView } from "react-intersection-observer";
 import { toast } from "sonner";
 
@@ -117,6 +112,18 @@ function AttendanceList() {
       fetchNextPage();
     }
   }, [fetchNextPage, inView]);
+  function getTotalTime(a: AttendeesType) {
+    const mins = differenceInMinutes(a.timeOut || new Date(), a.timeIn) % 60;
+    const hrs = differenceInMinutes(a.timeOut || new Date(), a.timeIn);
+    const totalTime =
+      hrs > 0
+        ? `${hrs} hour${hrs > 1 ? "s" : ""} ${
+            mins > 0 ? `and ${mins} minute${mins > 1 ? "s" : ""}` : ""
+          }`
+        : `${mins} minute${mins > 1 ? "s" : ""}`;
+    return totalTime;
+  }
+
   return (
     <div className="flex flex-col gap-1.5 h-full">
       <h3 className="text-zinc-300 font-bold text-xl pb-3">Attendance List</h3>
@@ -215,13 +222,13 @@ function AttendanceList() {
                     {a.status}
                   </td>
                   <td className="p-2.5 text-zinc-400 text-xs break-all">
-                    {a.timeIn}
+                    {format(a.timeIn, "p")}
                   </td>
                   <td className="p-2.5 text-zinc-400 text-xs break-all">
-                    {a.timeOut ? a.timeOut : "--:-- --"}
+                    {a.timeOut ? format(a.timeOut, "p") : "--:-- --"}
                   </td>
                   <td className="p-2.5 text-zinc-400 text-xs break-all">
-                    {a.totalTime ? a.totalTime : "----"}
+                    {a.timeOut ? getTotalTime(a) : "----"}
                   </td>
                   <td className="p-2.5 flex items-center justify-center gap-2">
                     <button

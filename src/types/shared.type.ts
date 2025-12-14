@@ -20,29 +20,21 @@ export type AdminAccountType = {
 };
 
 export type AttendeesType = {
-  timeIn: string;
-  timeOut: string | null;
+  timeIn: Date;
+  timeOut: Date | null;
   section: Section;
   firstName: string;
   lastName: string;
 
   id: string;
   status: "Present" | "Away";
-  totalTime: string | null;
-};
-
-export type ConfessionType = {
-  id: string;
-  comment: string;
-  isRead: boolean;
-  createdAt: string;
 };
 
 export type FeedbackType = {
   author: { lastName: string; firstName: string };
   rating: number;
   comment: string | null;
-  createdAt: string;
+  createdAt: Date;
   id: string;
 };
 

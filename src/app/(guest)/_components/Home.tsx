@@ -19,7 +19,7 @@ import SubmitFeedback from "./SubmitFeedback";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
-import { isEventEnded } from "@/lib/utils/checkEvent";
+import { isEventEnded, isTimeInStop } from "@/lib/utils/checkEvent";
 
 export default function Home() {
   const [dateTimeOut, setDateTimeOut] = useState("00: 00: 00");
@@ -94,7 +94,7 @@ export default function Home() {
           </h6>
         </div>
 
-        {!isEventEnded() && !sessionId && (
+        {!isEventEnded() && !sessionId && !isTimeInStop() && (
           <button
             onClick={() => router.push("/register")}
             className="py-2 w-full sm:w-1/2 md:w-1/4 rounded-md border border-zinc-400/40 text-zinc-300 bg-[rgb(1,30,73)] relative overflow-hidden cursor-pointer group transition-all duration-150 flex items-center justify-center"

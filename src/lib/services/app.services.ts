@@ -92,27 +92,14 @@ export const attendanceList = async (params: AttendanceListParams) => {
       section: true,
       lastName: true,
       firstName: true,
-
       id: true,
     },
   });
 
   const formattedResult = users.map((u) => {
-    const mins = differenceInMinutes(u.timeOut || new Date(), u.timeIn) % 60;
-    const hrs = differenceInHours(u.timeOut || new Date(), u.timeIn);
-
-    const totalTime =
-      hrs > 0
-        ? `${hrs} hour${hrs > 1 ? "s" : ""} ${
-            mins > 0 ? `and ${mins} minute${mins > 1 ? "s" : ""}` : ""
-          }`
-        : `${mins} minute${mins > 1 ? "s" : ""}`;
     return {
       ...u,
       status: u.timeOut ? "Away" : "Present",
-      totalTime: u.timeOut ? totalTime : null,
-      timeIn: format(u.timeIn, "p"),
-      timeOut: u.timeOut ? format(u.timeOut, "p") : null,
     };
   });
 
@@ -210,13 +197,8 @@ export async function feedbackList(cursor: string) {
       id: true,
     },
   });
-  const formattedList = list.map((l) => {
-    return {
-      ...l,
-      createdAt: format(l.createdAt, "Pp"),
-    };
-  });
-  return formattedList;
+
+  return list;
 }
 
 export async function totalAttendees() {
@@ -263,7 +245,7 @@ export async function topTenAttendees(sort: "asc" | "desc") {
       return {
         name: `${firstName} ${lastName}`,
         year: `${section}`,
-        timeIn: format(timeIn, "p"),
+        timeIn,
       };
     }
   );
