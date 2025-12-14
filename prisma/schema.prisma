@@ -36,7 +36,7 @@ model Feedback {
   id        String   @id @default(cuid())
   rating    Int      @default(0)
   authorId  String
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   comment   String?
   createdAt DateTime @default(now())
 }
