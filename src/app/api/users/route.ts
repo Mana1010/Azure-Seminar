@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         data: {
-          timeIn: time(timeIn || new Date()),
+          timeIn: time(new Date(timeIn) || new Date()),
           name: firstName,
           sessionId,
         },
