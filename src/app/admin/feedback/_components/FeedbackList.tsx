@@ -13,6 +13,7 @@ import { useInView } from "react-intersection-observer";
 import star from "../../../../../public/christmas-star.png";
 import { Spinner } from "@/components/ui/spinner";
 import { IoPerson } from "react-icons/io5";
+import { format } from "date-fns";
 function FeedbackList() {
   const { inView, ref } = useInView();
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
@@ -77,7 +78,7 @@ function FeedbackList() {
                       </div>
 
                       <span className="text-[0.6rem] text-zinc-400/65 font-bold text-start">
-                        {f.createdAt}
+                        {format(f.createdAt, "Pp")}
                       </span>
                     </div>
                   </div>
