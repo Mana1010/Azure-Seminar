@@ -36,7 +36,7 @@ function RegisterSuccessfully({
           <p className="text-zinc-300 text-xs text-center">
             Your attendance for the seminar has been successfully recorded at{" "}
             <span className="text-primary font-bold">{timeIn}</span>. The
-            official time-out will be at 5:00 PM.
+            official time-out will be at 11:00 AM.
           </p>
         </div>
       </div>
